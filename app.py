@@ -75,7 +75,7 @@ elif page == "PPMI Heatmaps":
     filtered_ppmi = ppmi_df[ppmi_df['w1'].isin(target_words)]
     
     # filters for the top 15 highest-scoring pairs per word to prevent horizontal crowding
-    top_n = filtered_ppmi.groupby('w1').apply(lambda x: x.nlargest(15, 'sppmi')).reset_index(drop=True)
+    top_n = filtered_ppmi.sort_values('sppmi', ascending=False).groupby('w1').head(15)
     
     # pivot the smaller dataset
     pivot_df = top_n.pivot(index='w1', columns='w2', values='sppmi').fillna(0)
