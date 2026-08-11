@@ -1,0 +1,85 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+
+# PAGE SETUP:
+# configures the browser tab and sets the app to use the full width of the screen
+st.set_page_config(page_title="Irish Placenames", layout="wide")
+st.title("Irish Placenames: Linguistic & Spatial Analysis")
+
+
+# DATA LOADING:
+# The @st.cache_data line ensures these files are only loaded once when the app starts, keeping the app incredibly fast as users click around
+@st.cache_data
+def load_data():
+    map_df = pd.read_csv("map_data.csv")
+    tfidf_df = pd.read_csv("tfidf_results.csv")
+    ppmi_df = pd.read_csv("ppmi_results.csv")
+    pca_df = pd.read_csv("PCA_results.csv")
+    
+    
+    return map_df, tfidf_df, ppmi_df, pca_df
+
+# loads the data into memory
+map_df, tfidf_df, ppmi_df, pca_df = load_data()
+
+# SIDEBAR NAVIGATION:
+# creates a menu on the left side of the screen for navigation between graphs/maps/charts
+st.sidebar.header("Navigation")
+page = st.sidebar.radio(
+    "Select Analysis Module:", 
+    ["Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters"]
+)
+
+
+# PAGE LOGIC & VISUALIZATIONS:
+
+if page == "Geospatial Map":
+    st.subheader("Geospatial Distribution of Irish Toponyms")
+    st.markdown("Visualize the physical locations of specific Irish placename features.")
+    
+    
+    search_term = st.text_input("Enter a term to map (e.g., 'coill'):")
+    filtered_map = map_df[map_df['Name_GA'].str.contains(search_term, case=False, na=False)]
+    
+    
+    fig = px.scatter_map(filtered_map, lat="Latitude", lon="Longitude", hover_name="Name_GA", zoom=5)
+    fig.update_layout(map_style="carto-positron")
+    
+    # sets chart to adequate width in UI
+    st.plotly_chart(fig, width="stretch")
+
+elif page == "TF-IDF Signatures":
+    st.subheader("County-Level Linguistic Signatures")
+    
+    selected_county = st.selectbox("Choose a County", tfidf_df["County"].unique())
+    filtered_tfidf = tfidf_df[tfidf_df["County"] == selected_county]
+    st.dataframe(filtered_tfidf)
+
+elif page == "PPMI Heatmaps":
+    st.subheader("Collocation Heatmaps (Shifted PPMI)")
+    
+    themes = {
+        "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile'],
+        "Water": ['loch', 'abhainn', 'tobar', 'áth', 'sruth', 'linn'],
+        "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin']
+    }
+    
+    selected_theme = st.selectbox("Select Theme:", list(themes.keys()))
+    target_words = themes[selected_theme]
+    
+    filtered_ppmi = ppmi_df[ppmi_df['w1'].isin(target_words)]
+    pivot_df = filtered_ppmi.pivot(index='w1', columns='w2', values='sppmi').fillna(0)
+    
+    color_scale = "Greens" if selected_theme == "Arboreal" else "Blues"
+    
+    fig = px.imshow(pivot_df, color_continuous_scale=color_scale, aspect="auto")
+    st.plotly_chart(fig, width="stretch")
+
+elif page == "3D PCA Clusters":
+    st.subheader("3D Semantic Clustering (TF-IDF PCA)")
+    
+    fig = px.scatter_3d(pca_df, x='PC1', y='PC2', z='PC3', color='County', hover_name='Name_GA')
+    fig.update_traces(marker=dict(size=4))
+    st.plotly_chart(fig, width="stretch")
