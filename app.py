@@ -30,7 +30,7 @@ map_df, tfidf_df, ppmi_df, pca_df = load_data()
 st.sidebar.header("Menu")
 page = st.sidebar.radio(
     "Select Analysis Tool:", 
-    ["Home & Overview","Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters", "References & Important Links"]
+    ["Home & Overview","Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters", "References & Links"]
 )
 
 # PAGE LOGIC & VISUALIZATIONS:
