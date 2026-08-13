@@ -60,44 +60,50 @@ elif page == "TF-IDF Signatures":
 
 elif page == "PPMI Heatmaps":
     st.subheader("Collocation Heatmaps (Shifted PPMI)")
-
+    
     # theme terminology was gathered from logainm's own guide found at ... https://www.logainm.ie/en/resources/education 
     themes = {
-        "Arboreal": ['coill', 'doire', 'crann','fiodh', 'dair', 'draighean', 'sceach', 'ros'],
+        "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile'],
         "Water": ['loch', 'abhainn', 'tobar', 'áth', 'sruth', 'linn'],
         "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin'],
-        "Fauna": ['bó', 'mac tíre', 'sionnach', 'bradán', 'traonach', 'fia', 'broc', 'capall', 'cat']
+        "Fauna": ['bó', 'sionnaigh', 'sionnach', 'fianna', 'fia', 'broc', 'mbroc', 'capall', 'gcapall', 'cait', 'cat', 'bradáin', 'bradán']
     }
     
     selected_theme = st.selectbox("Select Theme:", list(themes.keys()))
     target_words = themes[selected_theme]
     
-    # filter down to the target words
-    filtered_ppmi = ppmi_df[ppmi_df['w1'].isin(target_words)]
+    # If Fauna, search w2. Otherwise, search w1. 
+    # Fauna is predominantly found in the second part of placenames because it denotes ownership (e.g. páirc bhfianna = park of the deer)
+    if selected_theme == "Fauna":
+        filtered_ppmi = ppmi_df[ppmi_df['w2'].isin(target_words)]
+        # Group by w2 to get the top features for each animal
+        top_n = filtered_ppmi.sort_values('sppmi', ascending=False).groupby('w2').head(15)
+    else:
+        filtered_ppmi = ppmi_df[ppmi_df['w1'].isin(target_words)]
+        top_n = filtered_ppmi.sort_values('sppmi', ascending=False).groupby('w1').head(15)
     
-    # filters for the top 15 highest-scoring pairs per word to prevent horizontal crowding
-    top_n = filtered_ppmi.sort_values('sppmi', ascending=False).groupby('w1').head(15)
+    # Pivot the dataframe
+    # If Fauna, flip the axes so Animals are on the Y-axis and Features on the X-axis
+    if selected_theme == "Fauna":
+        pivot_df = top_n.pivot(index='w2', columns='w1', values='sppmi').fillna(0)
+        color_scale = "Oranges"
+    else:
+        pivot_df = top_n.pivot(index='w1', columns='w2', values='sppmi').fillna(0)
+        color_scale = "Greens" if selected_theme == "Arboreal" else "Blues"
     
-    # pivot the smaller dataset
-    pivot_df = top_n.pivot(index='w1', columns='w2', values='sppmi').fillna(0)
-    
-    color_scale = "Greens" if selected_theme == "Arboreal" else "Blues"
-    
-    # adds text_auto to render the numbers inside the heatmap squares
+    # Draw the Heatmap
     fig = px.imshow(pivot_df, color_continuous_scale=color_scale, aspect="auto", text_auto=".1f")
     st.plotly_chart(fig, width="stretch")
 
-    # STATISTICAL TEST TABLE
-    # To validate the findings as statistically significant and not random chance that these placename features collocate...
+    # STATISTICAL VALIDATION TABLE
+    # Displays LLR scores for each term collocation finding, providing statistical significance to results
     st.markdown("---")
     st.markdown("### Statistical Validation (Log-Likelihood Ratio)")
     st.markdown("The collocations above have been rigorously tested against a null hypothesis. An LLR score > **10.83** indicates **99.9% statistical significance**.")
     
-    # Clean up the column names for public viewing
     display_stats = top_n[['w1', 'w2', 'count_w1_w2', 'sppmi', 'LLR_Score']].sort_values(by='LLR_Score', ascending=False)
     display_stats.columns = ["Target Word (w1)", "Context Word (w2)", "Total Co-occurrences", "SPPMI Score", "LLR Score"]
     
-    # displays results as an interactive dataframe
     st.dataframe(display_stats, width="stretch")
 
 elif page == "3D PCA Clusters":
