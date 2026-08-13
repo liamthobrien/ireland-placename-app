@@ -152,10 +152,10 @@ elif page == "References & Links":
     
     ### 🔬 Methodology & Papers
     *   **Pointwise Mutual Information (PMI):** 
-        *   *Word Associations in NLP - Interactive* by Michael Brenndoerfer. Used to establish the shifted PMI and Log-Likelihood thresholds.
-        *   Church, K. W., & Hanks, P. (1990). *Word association norms, mutual information, and lexicography.* Computational linguistics, 16(1), 22-29.
+        *   Brenndoerfer, M. (n.d.). Word associations in NLP - Interactive. [Add URL here if available]
+        *   Church, K. W., & Hanks, P. (1990). Word association norms, mutual information, and lexicography. *Computational Linguistics*, *16*(1), 22–29.
     *   **Word2Vec & Syntactic Similarity:** 
-        *   Mikolov, T., et al. (2013). *Distributed representations of words and phrases and their compositionality.* Advances in neural information processing systems, 26.
+        *   Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., & Dean, J. (2013). Distributed representations of words and phrases and their compositionality. *Advances in Neural Information Processing Systems*, *26*.
     
     ---
     
