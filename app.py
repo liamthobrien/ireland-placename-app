@@ -63,8 +63,8 @@ elif page == "PPMI Heatmaps":
     
     # theme terminology was gathered from logainm's own guide found at ... https://www.logainm.ie/en/resources/education 
     themes = {
-        "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile'],
-        "Water": ['loch', 'abhainn', 'tobar', 'áth', 'sruth', 'linn'],
+        "Arboreal": ['coill', 'doire', 'crann','fiodh', 'dair', 'draighean', 'sceach', 'ros'],
+        "Water": ['loch', 'abhainn', 'tobar', 'áth', 'bá', 'bun', 'glas', 'inis', 'cuan', 'eas'],
         "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin'],
         "Fauna": ['bó', 'sionnaigh', 'sionnach', 'fianna', 'fia', 'broc', 'mbroc', 'capall', 'gcapall', 'cait', 'cat', 'bradáin', 'bradán']
     }
@@ -91,7 +91,7 @@ elif page == "PPMI Heatmaps":
         pivot_df = top_n.pivot(index='w1', columns='w2', values='sppmi').fillna(0)
         color_scale = "Greens" if selected_theme == "Arboreal" else "Blues"
     
-    # Draw the Heatmap
+    # Draw the heatmap and add text_auto to render the numbers inside the heatmap squares
     fig = px.imshow(pivot_df, color_continuous_scale=color_scale, aspect="auto", text_auto=".1f")
     st.plotly_chart(fig, width="stretch")
 
@@ -100,10 +100,12 @@ elif page == "PPMI Heatmaps":
     st.markdown("---")
     st.markdown("### Statistical Validation (Log-Likelihood Ratio)")
     st.markdown("The collocations above have been rigorously tested against a null hypothesis. An LLR score > **10.83** indicates **99.9% statistical significance**.")
-    
+
+    # Clean up the column names for public viewing
     display_stats = top_n[['w1', 'w2', 'count_w1_w2', 'sppmi', 'LLR_Score']].sort_values(by='LLR_Score', ascending=False)
     display_stats.columns = ["Target Word (w1)", "Context Word (w2)", "Total Co-occurrences", "SPPMI Score", "LLR Score"]
     
+    # displays results as an interactive dataframe
     st.dataframe(display_stats, width="stretch")
 
 elif page == "3D PCA Clusters":
