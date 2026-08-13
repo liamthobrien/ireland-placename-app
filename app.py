@@ -65,7 +65,7 @@ elif page == "PPMI Heatmaps":
     themes = {
         "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile', 'bhile', 'uinse', 'fiodh', 'eo', 'iúr', 'dair', 'giúis', 'leamhán'],
         "Water": ['loch', 'abhainn', 'tobar', 'áth', 'sruth', 'linn'],
-        "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin']
+        "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin'],
         "Fauna": ['bó', 'mac tíre', 'sionnach', 'bradán', 'traonach', 'fia']
     }
     
