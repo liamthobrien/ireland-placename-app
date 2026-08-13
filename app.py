@@ -30,7 +30,7 @@ map_df, tfidf_df, ppmi_df, pca_df = load_data()
 st.sidebar.header("Menu")
 page = st.sidebar.radio(
     "Select Analysis Tool:", 
-    ["Home & Overview","Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters"]
+    ["Home & Overview","Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters", "References & Important Links"]
 )
 
 # PAGE LOGIC & VISUALIZATIONS:
@@ -138,3 +138,29 @@ elif page == "3D PCA Clusters":
     fig = px.scatter_3d(pca_df, x='PC1', y='PC2', z='PC3', color='County', hover_name='Name_GA')
     fig.update_traces(marker=dict(size=4))
     st.plotly_chart(fig, width="stretch")
+
+elif page == "References & Links":
+    st.header("References & Important Links")
+    st.markdown("Here are the primary data sources, methodologies, and tools used to build this analysis.")
+    
+    st.markdown("""
+    ### 📚 Primary Data Sources
+    *   **The Placenames Database of Ireland (Logainm):** Comprehensive database of Irish toponymy and geographical features. [Visit logainm.ie](https://www.logainm.ie/)
+    *   **National Corpus of Irish (NCI):** A baseline reference for standard everyday Irish language collocations and word frequencies. [Visit Gaois / NCI](https://www.gaois.ie/en/corpora/)
+    
+    ---
+    
+    ### 🔬 Methodology & Papers
+    *   **Pointwise Mutual Information (PMI):** 
+        *   *Word Associations in NLP - Interactive* by Michael Brenndoerfer. Used to establish the shifted PMI and Log-Likelihood thresholds.
+        *   Church, K. W., & Hanks, P. (1990). *Word association norms, mutual information, and lexicography.* Computational linguistics, 16(1), 22-29.
+    *   **Word2Vec & Syntactic Similarity:** 
+        *   Mikolov, T., et al. (2013). *Distributed representations of words and phrases and their compositionality.* Advances in neural information processing systems, 26.
+    
+    ---
+    
+    ### 🛠️ Technologies & Frameworks
+    *   **[Streamlit Community Cloud](https://streamlit.io/):** Used for hosting this interactive web application.
+    *   **[Plotly for Python](https://plotly.com/python/):** Used for rendering all interactive heatmaps and 3D PCA models.
+    *   **[Apache Spark (PySpark)](https://spark.apache.org/):** Used for the backend big-data tokenization, NLP parsing, and K-Means clustering.
+    """)
