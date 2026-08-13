@@ -63,10 +63,10 @@ elif page == "PPMI Heatmaps":
 
     # theme terminology was gathered from logainm's own guide found at ... https://www.logainm.ie/en/resources/education 
     themes = {
-        "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile', 'bhile', 'uinse', 'fiodh', 'eo', 'iúr', 'dair', 'giúis', 'leamhán'],
+        "Arboreal": ['coill', 'doire', 'crann','fiodh', 'dair', 'draighean', 'sceach', 'ros'],
         "Water": ['loch', 'abhainn', 'tobar', 'áth', 'sruth', 'linn'],
         "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin'],
-        "Fauna": ['bó', 'mac tíre', 'sionnach', 'bradán', 'traonach', 'fia']
+        "Fauna": ['bó', 'mac tíre', 'sionnach', 'bradán', 'traonach', 'fia', 'broc', 'capall', 'cat']
     }
     
     selected_theme = st.selectbox("Select Theme:", list(themes.keys()))
