@@ -27,14 +27,29 @@ map_df, tfidf_df, ppmi_df, pca_df = load_data()
 
 # SIDEBAR NAVIGATION:
 # creates a menu on the left side of the screen for navigation between graphs/maps/charts
-st.sidebar.header("Navigation")
+st.sidebar.header("Menu")
 page = st.sidebar.radio(
-    "Select Analysis Module:", 
-    ["Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters"]
+    "Select Analysis Tool:", 
+    ["Home & Overview","Geospatial Map", "TF-IDF Signatures", "PPMI Heatmaps", "3D PCA Clusters"]
 )
 
-
 # PAGE LOGIC & VISUALIZATIONS:
+
+if page == "Home & Overview":
+    st.header("Mapping the Linguistic Landscape of Ireland")
+    st.markdown("""
+    Welcome to the Irish Placenames (Logainmneacha) Analysis tool. This application uses Natural Language Processing (NLP) and geospatial data to uncover the hidden environmental, cultural, and historical patterns encoded in over 67,000 Irish townlands and geographical features.
+    
+    ### How to Use This App
+    Use the sidebar on the left to navigate through four distinct analytical modules:
+    
+    *   **Geospatial Map:** An interactive, grammatically aware search engine. Type a geographical term (like *coill* for wood) to see its exact distribution across the island.
+    *   **TF-IDF Signatures:** Discover the unique "linguistic DNA" of each county. This module reveals which words define a specific region compared to the rest of the country.
+    *   **PPMI Heatmaps:** Explore cultural naming conventions. This tool measures the statistical bond between words (e.g., discovering which animals are historically associated with which terrains).
+    *   **3D PCA Clusters:** A machine-learning visualization that groups placenames based on their structural and semantic similarities.
+    
+    *Data sourced from Logainm.ie / The Placenames Database of Ireland.*
+    """)
 
 if page == "Geospatial Map":
     st.subheader("Geospatial Distribution of Irish Toponyms")
@@ -60,6 +75,15 @@ elif page == "TF-IDF Signatures":
 
 elif page == "PPMI Heatmaps":
     st.subheader("Collocation Heatmaps (Shifted PPMI)")
+    
+    st.info("""
+    **How to read this heatmap:** 
+    Pointwise Mutual Information (PMI) measures the strength of the bond between two words. A dark color means that when Word A appears, Word B is highly likely to be right next to it.
+    
+    **Note on Rare Events:** PMI mathematically favors rare combinations. For example, if you see a massive score for *sionnaigh* (fox) and *ruball* (tail), it is because *ruball* is incredibly rare in Irish placenames—but when it does appear, it is almost exclusively chained to the word *sionnaigh*. 
+    
+    Always cross-reference the heatmap with the **Statistical Validation Table** below to see if a dark square represents a widespread cultural naming convention (high co-occurrence count) or a highly localized historical quirk (low co-occurrence count).
+    """)
     
     # theme terminology was gathered from logainm's own guide found at ... https://www.logainm.ie/en/resources/education 
     themes = {
