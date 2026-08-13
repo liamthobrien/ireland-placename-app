@@ -61,11 +61,12 @@ elif page == "TF-IDF Signatures":
 elif page == "PPMI Heatmaps":
     st.subheader("Collocation Heatmaps (Shifted PPMI)")
 
-    # theme terminology was gathered from logainm's own guide found at ...
+    # theme terminology was gathered from logainm's own guide found at ... https://www.logainm.ie/en/resources/education 
     themes = {
-        "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile'],
+        "Arboreal": ['coill', 'doire', 'crann', 'cuileann', 'beith', 'bile', 'bhile', 'uinse', 'fiodh', 'eo', 'iúr', 'dair', 'giúis', 'leamhán'],
         "Water": ['loch', 'abhainn', 'tobar', 'áth', 'sruth', 'linn'],
         "Geography": ['cnoc', 'sliabh', 'gleann', 'carraig', 'droim', 'móin']
+        "Fauna": ['bó', 'mac tíre', 'sionnach', 'bradán', 'traonach', 'fia']
     }
     
     selected_theme = st.selectbox("Select Theme:", list(themes.keys()))
@@ -97,7 +98,7 @@ elif page == "PPMI Heatmaps":
     display_stats.columns = ["Target Word (w1)", "Context Word (w2)", "Total Co-occurrences", "SPPMI Score", "LLR Score"]
     
     # displays results as an interactive dataframe
-    st.dataframe(display_stats, width=None)
+    st.dataframe(display_stats, width="stretch")
 
 elif page == "3D PCA Clusters":
     st.subheader("3D Semantic Clustering (TF-IDF PCA)")
