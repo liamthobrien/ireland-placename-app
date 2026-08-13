@@ -162,5 +162,6 @@ elif page == "References & Links":
     ### 🛠️ Technologies & Frameworks
     *   **[Streamlit Community Cloud](https://streamlit.io/):** Used for hosting this interactive web application.
     *   **[Plotly for Python](https://plotly.com/python/):** Used for rendering all interactive heatmaps and 3D PCA models.
-    *   **[Apache Spark (PySpark)](https://spark.apache.org/):** Used for the backend big-data tokenization, NLP parsing, and K-Means clustering.
+    *   **[Apache Spark (PySpark)](https://spark.apache.org/):** Used for the process of big-data tokenization, NLP parsing, and K-Means clustering.
+    *   **[Spark NLP Irish lemmatizer] (https://sparknlp.org/2020/07/29/lemma_ga.html):** Used in the pre-processing of data. 
     """)
