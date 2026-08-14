@@ -78,6 +78,9 @@ elif page == "PPMI Heatmaps":
     
     st.info("""
     **How to read this heatmap:** 
+    
+    "It is common practice in linguistics to classify words not only on the basis of their meanings but also on the basis of their co-occurrence with other words." 
+    
     Pointwise Mutual Information (PMI) measures the strength of the bond between two words. A dark color means that when Word A appears, Word B is highly likely to be right next to it.
     
     **Note on Rare Events:** PMI mathematically favors rare combinations. For example, if you see a massive score for *sionnaigh* (fox) and *ruball* (tail), it is because *ruball* is incredibly rare in Irish placenames—but when it does appear, it is almost exclusively chained to the word *sionnaigh*. 
@@ -134,6 +137,19 @@ elif page == "PPMI Heatmaps":
 
 elif page == "3D PCA Clusters":
     st.subheader("3D Semantic Clustering (TF-IDF PCA)")
+    
+    st.info("""
+    **How to read this 3D model:** 
+    This interactive plot takes the complex, mathematical representations of the Irish language and reduces them into three visible dimensions (Principal Components). 
+    * **Proximity is Meaning:** Points (placenames) that cluster closely together in this 3D space share highly similar linguistic and structural contexts. 
+    * **Interaction:** You can drag to rotate the model, scroll to zoom, and hover over any dot to see the specific placename and its home county.
+    
+    **Note on Sampling:** To ensure this visualization renders smoothly, it displays a *representative* **10% sample** of the full Irish placename dataset. This model serves as an *exploratory illustration* of broad semantic similarities across the landscape, rather than exhaustive statistical proof.
+    
+    **The "Syntactic Slot" Phenomenon:** 
+    When exploring the clusters, you will notice that words like ***Cill*** (church), ***Baile*** (town), and ***Cnoc*** (hill) tightly group together. Why? 
+    The applied machine learning algorithm does not know what a church or a hill is. It only looks at the sampled placenames and sees what words sit *together*. Because early Irish people named their churches (*Cill Mhór* / Big Church), their towns (*Baile Mór*), and their hills (*Cnoc Mór*) using the exact same descriptive grammar and terms. It mathematically recognizes them all as semantically similar based on the company that each significant term keeps.
+    """)
     
     fig = px.scatter_3d(pca_df, x='PC1', y='PC2', z='PC3', color='County', hover_name='Name_GA')
     fig.update_traces(marker=dict(size=4))
