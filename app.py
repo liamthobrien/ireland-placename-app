@@ -144,19 +144,21 @@ elif page == "References & Links":
     st.markdown("Here are the primary data sources, methodologies, and tools used to build this analysis.")
     
     st.markdown("""
-    ### Primary Data Sources
+    ### Main Data Sources
     *   **The Placenames Database of Ireland (Logainm):** Comprehensive database of Irish toponymy and geographical features. [Visit logainm.ie](https://www.logainm.ie/)
     *   **National Corpus of Irish (NCI):** A baseline reference for standard everyday Irish language collocations and word frequencies. [Visit Gaois / NCI](https://www.gaois.ie/en/corpora/)
     
     ---
     
     ### Methodology & Papers
-    *   **Pointwise Mutual Information (PMI):** 
-        *   Brenndoerfer, M. (n.d.). Word associations in NLP - Interactive. [Add URL here if available]
-        *   Church, K. W., & Hanks, P. (1990). Word association norms, mutual information, and lexicography. *Computational Linguistics*, *16*(1), 22–29.
-    *   **Word2Vec & Syntactic Similarity:** 
-        *   Mikolov, T., Sutskever, I., Chen, K., Corrado, G. S., & Dean, J. (2013). Distributed representations of words and phrases and their compositionality. *Advances in Neural Information Processing Systems*, *26*.
-    
+    *    Brenndoerfer, M. (2025a, March 24). Co-occurrence matrices: Distributional semantics in NLP. Michael Brenndoerfer. Mbrenndoerfer.Com. https://mbrenndoerfer.com/writing/co-occurrence-matrices-distributional-semantics-nlp#co-occurrence-matrices
+    *    Brenndoerfer, M. (2025b, March 31). Pointwise mutual information: Word associations in NLP. Michael Brenndoerfer. Mbrenndoerfer.Com. https://mbrenndoerfer.com/writing/pointwise-mutual-information-word-associations-nlp#setup-and-data
+    *    Church, K. W., & Hanks, P. (1990). Word association norms, mutual information, and lexicography. Computational Linguistics, *16*(1), 22–29. https://aclanthology.org/J90-1003/
+    *    Fiontar & Scoil na Gaeilge (DCU). (2026). Educational resources. Logainm.Ie. https://www.logainm.ie/en/resources/educationForas na Gaeilge. (2025). New english-Irish dictionary from Foras na Gaeilge. In Focloir.ie. https://www.focloir.ie/en
+    *    fr4nk.xyz. (2023). Understanding pointwise mutual information: A beginner’s guide. In Medium. https://medium.com/@fr4nk/understanding-pointwise-mutual-information-a-beginners-guide-dcfed0f83ff2
+    *    Jones, A. (2021, November). A multi-page interactive dashboard with streamlit and plotly. TDS Archive. Medium. https://medium.com/data-science/a-multi-page-interactive-dashboard-with-streamlit-and-plotly-c3182443871a
+    *    Suri, M. (2022). A dummy’s guide to Word2Vec. In Medium. https://medium.com/@manansuri/a-dummys-guide-to-word2vec-456444f3c673
+  
     ---
     
     ### Technologies & Frameworks
@@ -167,6 +169,6 @@ elif page == "References & Links":
 
     --- 
     ### Author Details
-    *    **This work is part of an undergraduate research paper conducted by Liam T. O'Brien on behalf of the [London Interdisciplinary School](https://www.lis.ac.uk/)
-    *    **Access the web-app code directly on my [github](https://github.com/liamthobrien)
+    *    This work is part of an undergraduate research paper conducted by Liam T. O'Brien on behalf of the [London Interdisciplinary School](https://www.lis.ac.uk/).
+    *    Access the web-app code directly on my [github](https://github.com/liamthobrien). 
     """)
