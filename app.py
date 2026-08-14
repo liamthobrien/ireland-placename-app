@@ -43,12 +43,13 @@ if page == "Home & Overview":
     ### How to Use This App
     Use the sidebar on the left to navigate through four distinct analytical modules:
     
-    *   **Geospatial Map:** An interactive, grammatically aware search engine. Type a geographical term (like *coill* for wood) to see its exact distribution across the island.
-    *   **TF-IDF Signatures:** Discover the unique "linguistic DNA" of each county. This module reveals which words define a specific region compared to the rest of the country.
-    *   **PPMI Heatmaps:** Explore cultural naming conventions. This tool measures the statistical bond between words (e.g., discovering which animals are historically associated with which terrains).
-    *   **3D PCA Clusters:** A machine-learning visualization that groups placenames based on their structural and semantic similarities.
+    *   **Geospatial Map:** An interactive, grammatically aware search engine. Type a geographical term (like *coill* for wood) to see its the placename points across the island in constellation.
+    *   **TF-IDF Signatures:** Discover the unique "linguistic DNA" of each county. This module highlights which words define the unique qualities of a county.
+    *   **PPMI Heatmaps:** Explore cultural naming conventions. This tool measures the statistical bond between words (e.g., discovering which animals are associated with which terrains or how certain trees are described).
+    *   **3D PCA Clusters:** A machine-learning visualization that groups placenames based on their structural and semantic similarities, while ignoring geographical borders.
     
     *Data sourced from Logainm.ie / The Placenames Database of Ireland.*
+    *Note: for any further translations of the Irish language or information on Irish placename culture please consult Foras na Gaeilge (2025) or Fiontar & Scoil na Gaeilge (DCU) (2026)*
     """)
 
 if page == "Geospatial Map":
@@ -71,7 +72,7 @@ elif page == "TF-IDF Signatures":
 
     st.info("""
     **How to read this table:** 
-    This tool highlights the "linguistic core" of each county. By selecting a county from the dropdown, you will see a list of topographical terms mathematically ranked by how uniquely characteristic they are to that specific region.
+    This tool highlights the "linguistic core" of each county. By selecting a county from the dropdown, you will see a list of topographical terms mathematically ranked by how uniquely characteristic they are to that specific region as if each county were a document (Jain, 2024).
     
     **The Math Behind The Process (TF-IDF):** 
     Term Frequency-Inverse Document Frequency (TF-IDF) is a statistical algorithm that balances two things:
@@ -97,7 +98,7 @@ elif page == "PPMI Heatmaps":
     
     "It is common practice in linguistics to classify words not only on the basis of their meanings but also on the basis of their co-occurrence with other words." - Church and Hanks (1990, p. 1) 
     
-    Pointwise Mutual Information (PMI) measures the strength of the bond between two words. A dark color means that when Word A appears, Word B is highly likely to be right next to it.
+    Pointwise Mutual Information (PMI) measures the strength of the bond between two words (fr4nk.xyz, 2023). A dark color means that when Word A appears, Word B is highly likely to be right next to it (for a more in depth look see Brenndoerfer, 2025a and Brenndoerfer, 2025b).
     
     **Note on Rare Events:** PMI mathematically favors rare combinations. For example, if you see a massive score for *sionnaigh* (fox) and *ruball* (tail), it is because *ruball* is incredibly rare in Irish placenames, but when it does appear, it is almost exclusively chained to the word *sionnaigh*. 
     
@@ -158,7 +159,7 @@ elif page == "3D PCA Clusters":
     **How to read this 3D model:** 
     This interactive plot takes the complex, mathematical representations of the Irish language and reduces them into three visible dimensions (Principal Components). 
     Through examining this we can get a broader picture of the major themes that occur across Irish placename culture regardless of geographical boundaries such as counties and provinces.
-    * **Proximity as Meaning:** Points (placenames) that cluster closely together in this 3D space share highly similar linguistic and structural contexts. 
+    * **Proximity as Meaning:** Points (placenames) that cluster closely together in this 3D space share highly similar linguistic and structural contexts (Suri, 2022). 
     * **Interaction:** You can drag to rotate the model, scroll to zoom, and hover over any dot to see the specific placename and its home county.
     
     **Note on Sampling:** To ensure this visualization renders smoothly, it displays a *representative* **10% sample** of the full Irish placename dataset. This model serves as an *exploratory illustration* of broad semantic similarities across the landscape, rather than exhaustive statistical proof.
