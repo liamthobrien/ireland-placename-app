@@ -38,7 +38,7 @@ page = st.sidebar.radio(
 if page == "Home & Overview":
     st.header("Mapping the Linguistic Landscape of Ireland")
     st.markdown("""
-    Welcome to the Irish Placenames (Logainmneacha) Analysis tool. This application uses Natural Language Processing (NLP) and geospatial data to uncover the hidden environmental, cultural, and historical patterns encoded in over 67,000 Irish townlands and geographical features.
+    Welcome to this Irish Placenames (Logainmneacha) Analysis tool. This application uses uses modern linguistics and data science techniques through Natural Language Processing (NLP) and geospatial data to gain understanding into environmental, cultural, and historical patterns encoded in over 67,000 Irish townlands and geographical features.
     
     ### How to Use This App
     Use the sidebar on the left to navigate through four distinct analytical modules:
@@ -68,6 +68,22 @@ if page == "Geospatial Map":
 
 elif page == "TF-IDF Signatures":
     st.subheader("County-Level Linguistic Signatures")
+
+    st.info("""
+    **How to read this table:** 
+    This tool highlights the "linguistic core" of each county. By selecting a county from the dropdown, you will see a list of topographical terms mathematically ranked by how uniquely characteristic they are to that specific region.
+    
+    **The Math Behind The Process (TF-IDF):** 
+    Term Frequency-Inverse Document Frequency (TF-IDF) is a statistical algorithm that balances two things:
+    1. **Term Frequency (TF):** How often a word is used in a specific county.
+    2. **Inverse Document Frequency (IDF):** A penalty applied to words that are common everywhere. 
+
+    
+    For example, words like *baile* (town) or *cnoc* (hill) appear thousands of times in every single county. TF-IDF lowers their score so they don't drown out the interesting data or more unique terms (see Jain, 2024). 
+    
+    **Why this matters:** 
+    The words that survive the IDF penalty and achieve a high score are the true geographic signatures of a county. For instance, you will notice coastal counties feature highly unique scores for terms like *cuas* (cove) or *faill* (cliff), while midland counties highlight specific terms for bogs and meadows. This shows mathematically how regional topography shapes local dialects and naming conventions. 
+    """)
     
     selected_county = st.selectbox("Choose a County", tfidf_df["County"].unique())
     filtered_tfidf = tfidf_df[tfidf_df["County"] == selected_county]
@@ -79,13 +95,13 @@ elif page == "PPMI Heatmaps":
     st.info("""
     **How to read this heatmap:** 
     
-    "It is common practice in linguistics to classify words not only on the basis of their meanings but also on the basis of their co-occurrence with other words." 
+    "It is common practice in linguistics to classify words not only on the basis of their meanings but also on the basis of their co-occurrence with other words." - Church and Hanks (1990, p. 1) 
     
     Pointwise Mutual Information (PMI) measures the strength of the bond between two words. A dark color means that when Word A appears, Word B is highly likely to be right next to it.
     
-    **Note on Rare Events:** PMI mathematically favors rare combinations. For example, if you see a massive score for *sionnaigh* (fox) and *ruball* (tail), it is because *ruball* is incredibly rare in Irish placenames—but when it does appear, it is almost exclusively chained to the word *sionnaigh*. 
+    **Note on Rare Events:** PMI mathematically favors rare combinations. For example, if you see a massive score for *sionnaigh* (fox) and *ruball* (tail), it is because *ruball* is incredibly rare in Irish placenames, but when it does appear, it is almost exclusively chained to the word *sionnaigh*. 
     
-    Always cross-reference the heatmap with the **Statistical Validation Table** below to see if a dark square represents a widespread cultural naming convention (high co-occurrence count) or a highly localized historical quirk (low co-occurrence count).
+    I always recommend to cross-reference the heatmap with the **Statistical Validation Table** below to see if a dark square represents a widespread cultural naming convention (high co-occurrence count) or a highly localized historical quirk (low co-occurrence count).
     """)
     
     # theme terminology was gathered from logainm's own guide found at ... https://www.logainm.ie/en/resources/education 
@@ -126,7 +142,7 @@ elif page == "PPMI Heatmaps":
     # Displays LLR scores for each term collocation finding, providing statistical significance to results
     st.markdown("---")
     st.markdown("### Statistical Validation (Log-Likelihood Ratio)")
-    st.markdown("The collocations above have been rigorously tested against a null hypothesis. An LLR score > **10.83** indicates **99.9% statistical significance**.")
+    st.markdown("The collocations above have been rigorously tested against a null hypothesis to ensure the observered collocations are more than random chance. An LLR score > **10.83** indicates **99.9% statistical significance**.")
 
     # Clean up the column names for public viewing
     display_stats = top_n[['w1', 'w2', 'count_w1_w2', 'sppmi', 'LLR_Score']].sort_values(by='LLR_Score', ascending=False)
@@ -141,7 +157,8 @@ elif page == "3D PCA Clusters":
     st.info("""
     **How to read this 3D model:** 
     This interactive plot takes the complex, mathematical representations of the Irish language and reduces them into three visible dimensions (Principal Components). 
-    * **Proximity is Meaning:** Points (placenames) that cluster closely together in this 3D space share highly similar linguistic and structural contexts. 
+    Through examining this we can get a broader picture of the major themes that occur across Irish placename culture regardless of geographical boundaries such as counties and provinces.
+    * **Proximity as Meaning:** Points (placenames) that cluster closely together in this 3D space share highly similar linguistic and structural contexts. 
     * **Interaction:** You can drag to rotate the model, scroll to zoom, and hover over any dot to see the specific placename and its home county.
     
     **Note on Sampling:** To ensure this visualization renders smoothly, it displays a *representative* **10% sample** of the full Irish placename dataset. This model serves as an *exploratory illustration* of broad semantic similarities across the landscape, rather than exhaustive statistical proof.
@@ -172,6 +189,7 @@ elif page == "References & Links":
     *    Church, K. W., & Hanks, P. (1990). Word association norms, mutual information, and lexicography. Computational Linguistics, *16*(1), 22–29. https://aclanthology.org/J90-1003/
     *    Fiontar & Scoil na Gaeilge (DCU). (2026). Educational resources. Logainm.Ie. https://www.logainm.ie/en/resources/educationForas na Gaeilge. (2025). New english-Irish dictionary from Foras na Gaeilge. In Focloir.ie. https://www.focloir.ie/en
     *    fr4nk.xyz. (2023). Understanding pointwise mutual information: A beginner’s guide. In Medium. https://medium.com/@fr4nk/understanding-pointwise-mutual-information-a-beginners-guide-dcfed0f83ff2
+    *    Jain, A. (2024). TF-IDF in NLP (term frequency inverse document frequency). In Medium. https://medium.com/@abhishekjainindore24/tf-idf-in-nlp-term-frequency-inverse-document-frequency-e05b65932f1d
     *    Jones, A. (2021, November). A multi-page interactive dashboard with streamlit and plotly. TDS Archive. Medium. https://medium.com/data-science/a-multi-page-interactive-dashboard-with-streamlit-and-plotly-c3182443871a
     *    Suri, M. (2022). A dummy’s guide to Word2Vec. In Medium. https://medium.com/@manansuri/a-dummys-guide-to-word2vec-456444f3c673
   
