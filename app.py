@@ -144,13 +144,13 @@ elif page == "References & Links":
     st.markdown("Here are the primary data sources, methodologies, and tools used to build this analysis.")
     
     st.markdown("""
-    ### 📚 Primary Data Sources
+    ### Primary Data Sources
     *   **The Placenames Database of Ireland (Logainm):** Comprehensive database of Irish toponymy and geographical features. [Visit logainm.ie](https://www.logainm.ie/)
     *   **National Corpus of Irish (NCI):** A baseline reference for standard everyday Irish language collocations and word frequencies. [Visit Gaois / NCI](https://www.gaois.ie/en/corpora/)
     
     ---
     
-    ### 🔬 Methodology & Papers
+    ### Methodology & Papers
     *   **Pointwise Mutual Information (PMI):** 
         *   Brenndoerfer, M. (n.d.). Word associations in NLP - Interactive. [Add URL here if available]
         *   Church, K. W., & Hanks, P. (1990). Word association norms, mutual information, and lexicography. *Computational Linguistics*, *16*(1), 22–29.
@@ -159,9 +159,14 @@ elif page == "References & Links":
     
     ---
     
-    ### 🛠️ Technologies & Frameworks
+    ### Technologies & Frameworks
     *   **[Streamlit Community Cloud](https://streamlit.io/):** Used for hosting this interactive web application.
     *   **[Plotly for Python](https://plotly.com/python/):** Used for rendering all interactive heatmaps and 3D PCA models.
     *   **[Apache Spark (PySpark)](https://spark.apache.org/):** Used for the process of big-data tokenization, NLP parsing, and K-Means clustering.
     *   **[Spark NLP Irish lemmatizer] (https://sparknlp.org/2020/07/29/lemma_ga.html):** Used in the pre-processing of data. 
+
+    --- 
+    ### Author Details
+    *    **This work is part of an undergraduate research paper conducted by Liam T. O'Brien on behalf of the [London Interdisciplinary School](https://www.lis.ac.uk/)
+    *    **Access the web-app code directly on my [github](https://github.com/liamthobrien)
     """)
